@@ -3,18 +3,17 @@
  $id=$_COOKIE['id'];
   $db = mysqli_connect("localhost", "root", "", "group");
   
+ 
    if (isset($_POST['create'])){
 	   $tb=$_POST['uname'];
-	   $desc=$_POST['description'];
+       $desc=$_POST['description'];
 	   
        $sql1="INSERT INTO groups (name,description,uid) VALUES ('$tb','$desc','$id')";
 	   mysqli_query($db, $sql1);
-	   
 	   $sql2="INSERT INTO groups1 (name,description,uid) VALUES ('$tb','$desc','$id')";
        mysqli_query($db, $sql2);
-
    }
-   $query="SELECT * FROM groups1 where uid='$id'";
+   $query="SELECT * FROM groups";
    $results2=mysqli_query($db,$query);
    
 	   
@@ -30,18 +29,21 @@
 
 
 <html>
-<head><link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<head>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" integrity="sha512-K1qjQ+NcF2TYO/eI3M6v8EiNYZfA95pQumfvcVrTHtwQVDG+aHRqLi/ETn2uB+1JqwYqVG3LIvdm9lj6imS/pQ==" crossorigin="anonymous"></script>
     <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-    <script type="text/javascript" src="js/bootstrap-filestyle.min.js"> </script>
+   
+	
       <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-  <link rel="stylesheet" href="/resources/demos/style.css">
+
   <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"></head>
@@ -252,8 +254,26 @@ function myFunction1() {
     $( "#tabs" ).tabs();
   } );
 </script>
+<script>
+$(document).ready(function(){
+	$('#search').keyup(function(){
+		var search = $('#search').val();
+	$.ajax({
+		url:'search.php',
+		data:{search:search},
+		type:'POST',
+		sucess:function(data){
+			if(!data.error){
+				$('#content2').html(data);
+	}}});
+});});
+</script>
+
+<br><br>
 
 
+  
+  <br>
 
    <div class="card-deck" id="content">
 <div class="flex-container">
@@ -268,7 +288,7 @@ function myFunction1() {
       echo "<div>";
       echo "<div class='card' id='crd'>";
 	  
-      	echo '<img class="card-img-top" src="group.png" alt="Card image cap">';
+      	echo "<a href='groupinfo.php?join=$me'><img class='card-img-top' src='group.png' alt='Card image cap'></a>";
 		echo "<div class='card-body'>";
       	echo " <h5 class='card-title'>".$row['name']."</h5>";
 		echo " <h5 class='card-title'>".$row['description']."</h5>";
@@ -285,9 +305,12 @@ function myFunction1() {
 	
 
   ?>
+  </div></div>
+  <div id="content2"></div>
 
 <script src="general.js"></script>
 <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+
 
    
 

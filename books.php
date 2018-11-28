@@ -15,7 +15,7 @@ else if(array_key_exists("id",$_SESSION) OR array_key_exists("id",$_COOKIE)){
 	header("Location:");
 }
 if(array_key_exists("submit",$_POST)){
-   $link=mysqli_connect("localhost","root","","register");
+   $link=mysqli_connect("localhost","root","","group");
    if(mysqli_connect_error()){
 	   echo "connection unsucessful";
    }
@@ -193,14 +193,14 @@ display:none;
 
 </nav>
 
-<section id="books">
+<section id="books" style="background:url(signup-bg.jpg) top center;background-repeat:no repeat;">
 <div id="error"><?php echo '<script language="javascript">';
 echo 'alert $error';
  echo '</script>'; ?></div>
 
 <form method="post" id="signupform">
 <div class="form-group" style="margin-top:250px">
-  <input type="email" class="form-control" name="email" placeholder="Username">
+  <input type="text" class="form-control" name="email" placeholder="Username">
   <input type="password" class="form-control" name="password" placeholder="password">
   <input type="email" class="form-control" name="emailID" placeholder="Email">
   <div class="checkbox"><label>
@@ -214,7 +214,7 @@ echo 'alert $error';
 </div></form>
 <form method="post"  id="loginform">
 <div class="form-group" style="margin-top:250px">
-  <input type="email" class="form-control" name="email" placeholder="Username">
+  <input type="text" class="form-control" name="email" placeholder="Username">
   <input type="password" class="form-control" name="password" placeholder="password">
   <input type="email" class="form-control" name="emailID" placeholder="Email">
   <div class="checkbox"><label>
